@@ -2,9 +2,43 @@ const Listing = require("../models/listing.js");
 const geocoder = require("../geocoder.js");
 
 // Listing --> index route
+function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({})
-    res.render("./listings/index.ejs", {allListings});
+    let { search, category } = req.query;
+    search = search?.trim() || "";
+    category = category?.trim() || "";
+
+    let query = {};
+
+    // 1. If category is present, add category constraint
+    if (category) {
+        query.category = category;
+    }
+
+    // 2. If search is present, add text matching constraints
+    if (search) {
+        const escapedSearch = escapeRegex(search);
+        const regex = { $regex: escapedSearch, $options: "i" };
+
+        query.$or = [
+            { location: regex },
+            { description: regex },
+            { title: regex },
+            { country: regex }
+        ];
+    }
+
+    // 3. Query MongoDB with dynamic query object
+    const allListings = await Listing.find(query);
+
+    res.render("listings/index", { 
+        allListings, 
+        search, 
+        category 
+    });
 };
 
 // Listing --> New route

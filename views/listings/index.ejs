@@ -1,116 +1,192 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div id="filters">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
-        <div class="filter">
+<% let searchParam = search ? `search=${encodeURIComponent(search)}&` : ""; %>
+
+<div id="filters">
+    <div class="filters-container">
+    <a href="/listings?<%= searchParam %>category=iconic-cities" class="filter-link">
+        <div class="filter <%= category === 'iconic-cities' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-city"></i></div>
             <p>Iconic cities</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=lakefront" class="filter-link">
+        <div class="filter <%= category === 'lakefront' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-water"></i></div>
             <p>Lakefront</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=beach" class="filter-link">
+        <div class="filter <%= category === 'beach' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-umbrella-beach"></i></div>
             <p>Beach</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=mountains" class="filter-link">
+        <div class="filter <%= category === 'mountains' ? 'active-filter' : '' %>">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=cabins" class="filter-link">
+        <div class="filter <%= category === 'cabins' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-house"></i></div>
             <p>Cabins</p>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Surfing</p>
-        </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=castles" class="filter-link">
+        <div class="filter <%= category === 'castles' ? 'active-filter' : '' %>">
             <div><i class="fa-brands fa-fort-awesome"></i></div>
             <p>Castles</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=islands" class="filter-link">
+        <div class="filter <%= category === 'islands' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-tree"></i></div>
             <p>Islands</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=farms" class="filter-link">
+        <div class="filter <%= category === 'farms' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-wheat-awn"></i></div>
             <p>Farms</p>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-igloo"></i></div>
-            <p>Igloo</p>
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=camping" class="filter-link">
+        <div class="filter <%= category === 'camping' ? 'active-filter' : '' %>">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p>
         </div>
-        <div class="filter">
+    </a>
+
+    <a href="/listings?<%= searchParam %>category=arctic" class="filter-link">
+        <div class="filter <%= category === 'arctic' ? 'active-filter' : '' %>">
             <div><i class="fa-regular fa-snowflake"></i></div>
             <p>Arctic</p>
         </div>
+    </a>
+    </div>
 
-       <div class="filter-search">
-            <i class="fa-solid fa-sliders"></i>
-            <span>Filter</span>
+    <!-- Desktop Toggle (inside #filters) -->
+    <div class="tax-toggle">
+        <label class="form-check-label me-2" for="switchCheckDefault">
+            Display total after taxes
+        </label>
+        <div class="form-check-reverse form-switch m-0">
+            <input
+                class="form-check-input tax-switch"
+                type="checkbox"
+                role="switch"
+                id="switchCheckDefault"
+            >
         </div>
+    </div>
+</div>
 
-        <div class="tax-toggle">
-    <label class="form-check-label me-2" for="switchCheckDefault">
+<!-- Moble tax-toggle -->
+<div class="tax-toggle-mobile d-flex d-md-none align-items-center justify-content-between my-2 px-3 py-2 border bg-white shadow-sm" style="border-radius: 0.85rem;">
+    <label class="form-check-label fw-medium text-dark mb-0" for="switchCheckMobile" style="font-size: 0.875rem; cursor: pointer;">
         Display total after taxes
     </label>
-
-    <div class="form-check-reverse form-switch m-0">
+    <div class="form-check form-switch m-0 d-flex align-items-center">
         <input
-            class="form-check-input"
+            class="form-check-input tax-switch"
             type="checkbox"
             role="switch"
-            id="switchCheckDefault"
+            id="switchCheckMobile"
+            style="cursor: pointer;"
         >
     </div>
 </div>
 
-    </div>
+    <% if (allListings && allListings.length > 0) { %>
+        <!-- Grid is rendered ONLY when listings exist -->
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
+            <% for(let listing of allListings){ %>
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                    <div class="card col listing-card">
+                        <img
+                            src="<%= listing.image.url %>"
+                            class="card-img-top"
+                            alt="listing_image"
+                            style="height: 20rem;"
+                        />
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b class="card-title"><%= listing.title %></b><br />
+                                ₹<span class="listing-price" data-price="<%= listing.price %>">
+                                    <%= listing.price.toLocaleString("en-IN") %>
+                                </span> / night
 
-    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
-        <% for(let listing of allListings){ %>
-
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-                <div class="card col listing-card">
-
-                    <img
-                        src="<%= listing.image.url %>"
-                        class="card-img-top"
-                        alt="listing_image"
-                        style="height: 20rem;"
-                    />
-
-                    <div class="card-img-overlay"></div>
-
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b class="card-title"><%= listing.title %></b><br />
-                            ₹<%= listing.price.toLocaleString("en-IN") %> / night
-                            <i class="tax-info">&nbsp; &nbsp;+ 18% GST</i>
-                        </p>
+                                <span class="tax-info" style="display: none;">
+                                    &nbsp; (incl. 18% GST)
+                                </span>
+                            </p>
+                        </div>
                     </div>
+                </a>
+            <% } %>
+        </div>
+    <% } else { %>
+        
+        <div class="text-center my-5 py-4">
+            <i class="fa-solid fa-magnifying-glass fs-1 text-muted mb-3"></i>
 
-                </div>
-            </a>
+            <% if (search && category) { %>
+                <h3>No listings found for "<%= search %>" in category "<%= category %>"</h3>
+                <p class="text-muted">Try removing the category filter or searching for another destination.</p>
+            <% } else if (search) { %>
+                <h3>No listings found for "<%= search %>"</h3>
+                <p class="text-muted">Try another destination, city, or search term.</p>
+            <% } else if (category) { %>
+                <h3>No listings found in category "<%= category %>"</h3>
+                <p class="text-muted">There are currently no listings available under this category.</p>
+            <% } else { %>
+                <h3>No listings available</h3>
+                <p class="text-muted">There are currently no listings in the system.</p>
+            <% } %>
 
-        <% } %>
-    </div>
+            <a href="/listings" class="btn btn-dark mt-2">View All Listings</a>
+        </div>
+    <% } %>
 
 <script>
-    let taxSwitch = document.getElementById("switchCheckDefault");
-    taxSwitch.addEventListener("click", () => {
-        let taxInfo = document.getElementsByClassName("tax-info");
-        for(info of taxInfo) {
-            if (info.style.display != "inline") {
-                info.style.display = "inline";
-            }else {
-                info.style.display = "none";
+    const taxSwitches = document.querySelectorAll(".tax-switch");
+    const prices = document.getElementsByClassName("listing-price");
+    const taxInfo = document.getElementsByClassName("tax-info");
+
+    taxSwitches.forEach((toggle) => {
+        toggle.addEventListener("change", () => {
+            const isChecked = toggle.checked;
+
+            // 1. Sync both toggles so desktop & mobile match
+            taxSwitches.forEach((s) => (s.checked = isChecked));
+
+            // 2. Recalculate and update displayed prices
+            for (let priceElement of prices) {
+                const originalPrice = Number(priceElement.dataset.price) || 0;
+                
+                if (isChecked) {
+                    const totalPrice = originalPrice * 1.18; // 18% GST added
+                    priceElement.innerText = totalPrice.toLocaleString("en-IN");
+                } else {
+                    priceElement.innerText = originalPrice.toLocaleString("en-IN");
+                }
             }
-        }
+
+            // 3. Toggle the "+18% GST" badge visibility
+            for (let info of taxInfo) {
+                info.style.display = isChecked ? "inline" : "none";
+            }
+        });
     });
 </script>

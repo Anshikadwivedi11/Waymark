@@ -19,7 +19,7 @@ body {
     margin-bottom: 0.3rem;
 }
 .fa-compass {
-    color: rgb(253, 8, 73);
+    color: #fe424d !important;
     font-size: 2rem;
 }
 .nav-link {
@@ -107,16 +107,22 @@ body {
     background-color: #ebebeb;
 }
 
-/* New page */
+/* Branded Action Button */
 .styled-btn {
-    background-color: rgb(253, 8, 73) !important;
+    background-color:  #fe1625 !important;
     border: none !important;
+    color: #ffffff !important;
+}
+
+.styled-btn:hover {
+    background-color: #eb1c1c !important;
+    color: #ffffff !important;
 }
 
 /* Show page */
 .show-img { 
     height: 45vh; 
-    width: 100vh;
+    width: 100%;
 } 
 .btns { 
     display: flex; 
@@ -128,7 +134,7 @@ body {
 /* Map */
 #map {
     height: 400px;
-    width: 100%;
+    width: 100vh;
     border-radius: 15px;   /* optional */
 }
 
@@ -162,43 +168,81 @@ body {
 
 #filters {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; 
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}
+
+#filters::-webkit-scrollbar {
+    display: none; 
+}
+
+.filters-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-right: 1rem;
+    padding-left: 0.7rem;
 }
 
 .filter {
     text-align: center;
-    margin-right: 1.5rem;
-    margin-top: 1.5rem;
-    opacity: 0.7;
+    margin-right: 1.8rem;
+    margin-top: 1.25rem;
+    opacity: 0.6;
+    padding-bottom: 0.5rem; 
+    border-bottom: 2px solid transparent; 
+    flex-shrink: 0;
 }
-
 
 .filter:hover {
     opacity: 1;
     cursor: pointer;
 }
 
+.filter i {
+    font-size: 1.20rem;
+}
+
 .filter p { 
     font-size: 0.9rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
 }
 
 .tax-info {
     display: none;
 }
 
+/* Hides toggle on phones so mobile never breaks */
 .tax-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none; 
+}
 
-    border: 1px solid #ddd;
-    border-radius: 1rem;
+/* Restores original desktop toggle and turns off edge-fading */
+@media (min-width: 768px) {
+    #filters {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
 
-    padding: 0.75rem 1rem;
-    height: 3rem;
-
-    margin-top: 0.5rem;
+    .tax-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border: 1px solid #ddd;
+        border-radius: 1rem;
+        padding: 0.75rem 1rem;
+        height: 3rem;
+        margin-left: auto;
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
 }
 
 .tax-toggle:hover {
@@ -207,30 +251,26 @@ body {
     transition: 0.2s;
 }
 
-.filter-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    border: 1px solid #ddd;
-    border-radius: 1rem;
-
-    padding: 0.75rem 1rem;
-    height: 3rem;
-
-    margin-left: auto;
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-
-    cursor: pointer;
+.filter-link {
+    text-decoration: none;
+    color: inherit;
 }
 
-.filter-search:hover {
-    border-color: #222;
-    cursor: pointer;
-    transition: 0.2s;
+.active-filter {
+    opacity: 1 !important;
+    border-bottom-color: #222 !important;
 }
+
+/* Mobile tax toggle container */
+.tax-toggle-mobile {
+    cursor: pointer;
+    border-color: #ddd !important;
+}
+
+.tax-toggle-mobile:active {
+    border-color: #222 !important;
+}
+
 
 
 

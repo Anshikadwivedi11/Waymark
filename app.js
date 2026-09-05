@@ -94,11 +94,12 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// Non existing route
+// Non existing route (middleware)
 app.use("*", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
 });
 
+// Error handling middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Some Error Occurred" } = err;
     res.status(statusCode).render("error.ejs", { err });
