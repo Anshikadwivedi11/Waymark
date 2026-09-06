@@ -28,7 +28,7 @@
   - [Running Locally](#running-locally)
 - [Folder Structure](#folder-structure)
 - [Roadmap](#roadmap)
-- [Author & Contact](#author--contact)
+- [Author & Contact](#author-contact)
 
 ---
 
@@ -135,18 +135,18 @@ Waymark follows a structured **Model-View-Controller (MVC)** design pattern to c
 
 Follow these steps to run Waymark on your local machine.
 
-### Prerequisites
+### <a id="prerequisites"></a>Prerequisites
 
 Make sure you have the following installed:
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [MongoDB](https://www.mongodb.com/) (local instance or MongoDB Atlas URI)
 - [Cloudinary](https://cloudinary.com/) account for image uploads
 
-### Installation
+### <a id="installation"></a>Installation
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/Anshikadwivedi1/Waymark.git](https://github.com/Anshikadwivedi1/Waymark.git)
+   git clone https://github.com/Anshikadwivedi11/Waymark.git
    cd Waymark
    ```
 
@@ -155,7 +155,7 @@ Make sure you have the following installed:
    npm install
    ```
 
-3. **Configure environment variables**  
+3. <a id="environment-variables"></a>**Configure environment variables**  
    Create a `.env` file in the root directory and add the following:
    ```env
    ATLASDB_URL=your_mongodb_connection_string
@@ -165,14 +165,14 @@ Make sure you have the following installed:
    CLOUD_API_SECRET=your_cloudinary_api_secret
    ```
 
-  > 🔒 **Security Notice:** Never commit your `.env` file to version control. Ensure it remains listed in your `.gitignore`.
+   > 🔒 **Security Notice:** Never commit your `.env` file to version control. Ensure it remains listed in your `.gitignore`.
 
 4. **Seed the database (optional)**
    ```bash
    node init/index.js
    ```
 
-5. **Start the server**
+5. <a id="running-locally"></a>**Start the server**
    ```bash
    node app.js
    ```
@@ -216,9 +216,9 @@ Waymark/
 
 ---
 
-## <a id="contact"></a>📫 Contact
+## <a id="author-contact"></a>👩‍💻 Author & Contact
 
-**Anshika Dwivedi** — feel free to reach out via GitHub for questions, suggestions, or collaboration.
+**Anshika Dwivedi** — feel free to reach out via GitHub or LinkedIn for questions, suggestions, or collaboration.
 
 - 📂 **Project Repository:** [github.com/Anshikadwivedi11/Waymark](https://github.com/Anshikadwivedi11/Waymark)
 - 🌐 **Live Demo:** [waymark-stays.onrender.com](https://waymark-stays.onrender.com)
